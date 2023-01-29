@@ -11,7 +11,10 @@ function MealItem(props) {
         <div className='price'>$ {props.meal.price?.toFixed(2)}</div>
       </div>
       <div>
-        <MealItemForm meal={props.meal} onChangeQuantity={props.onChangeQuantity} />
+        <MealItemForm
+          mealId={props.meal?.id}
+          quantity={props?.meal?.orderQuantity}
+        />
       </div>
     </li>
   )

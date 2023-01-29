@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import AppContext from '../../context/appContext';
 import classes from './HeaderCartButton.module.css'
 
-export default function HeaderCartButton() {
+export default function HeaderCartButton(props) {
+
+  const { cartItems } = useContext(AppContext);
+
+  // console.log("cartItems: ", cartItems);
+  useEffect(() => {
+  }, []);
+
+  const getCartCount = () => {
+    let count = 0;
+    cartItems.forEach((item) => {
+      count += Number(item.orderQuantity)
+    })
+    return count;
+  }
+
+
   return (
-    <button className={classes.button}>
+    <button className={classes.button} onClick={props.openCart}>
       <span className={classes.icon}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -14,7 +31,7 @@ export default function HeaderCartButton() {
         </svg>
       </span>
       <span>Your cart</span>
-      <span className={classes.badge}>3</span>
+      <span className={classes.badge}>{getCartCount()}</span>
     </button>
   )
 }
