@@ -23,7 +23,7 @@ export default function MealItemForm(props) {
           type: 'number',
           value: props?.quantity,
           min: '1',
-          onChange: (e) => { console.log(myRef); handleQuantityChange(e.target.value, props?.mealId) }
+          onChange: (e) => { handleQuantityChange(e.target.value, props?.mealId) }
         }}
       />
       <button>+ Add</button>

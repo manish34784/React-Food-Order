@@ -72,8 +72,41 @@ function App() {
 
   }
 
+  const handleIncreaseFromWithinCart = (mealId, currentQuantity) => {
+    // console.log("From Increase: ", mealId, currentQuantity);
+    handleQuantityChange((+currentQuantity + 1), mealId);
+    let newCartItems = cartItems.map((item) => {
+      return {
+        ...item, orderQuantity: item?.id === mealId ? (+currentQuantity + 1) : item?.orderQuantity
+      }
+    });
+    setCartItems(newCartItems)
+  }
+
+  const handleDecreaseFromWithinCart = (mealId, currentQuantity) => {
+    // console.log("From Decrease: ", mealId, currentQuantity)
+    if(currentQuantity > 1) {
+      handleQuantityChange((+currentQuantity - 1), mealId);
+      let newCartItems = cartItems.map((item) => {
+        return {
+          ...item, orderQuantity: item?.id === mealId ? (+currentQuantity - 1) : item?.orderQuantity
+        }
+      });
+      setCartItems(newCartItems)
+    }
+    else {
+      let newCartItems = cartItems.filter((item) => (item?.id !== mealId));
+      setCartItems(newCartItems);
+    }
+  }
+
   return (
-    <AppContext.Provider value={{ cartItems, availableMeals, handleAddToCart, handleQuantityChange }}>
+    <AppContext.Provider
+      value={{
+        cartItems, availableMeals, handleAddToCart, handleQuantityChange,
+        handleIncreaseFromWithinCart, handleDecreaseFromWithinCart
+      }}
+    >
       {
         showCart && <Cart closeCart={() => { setShowCart(false); }} />
       }

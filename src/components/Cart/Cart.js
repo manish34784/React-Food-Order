@@ -6,10 +6,10 @@ import CartItem from './CartItem';
 
 export default function Cart(props) {
   const ctxVal = useContext(AppContext);
-  const { cartItems } = ctxVal;
+  const { cartItems, handleIncreaseFromWithinCart, handleDecreaseFromWithinCart  } = ctxVal;
 
   useEffect(() => {
-    console.log("ctxVal: ", ctxVal)
+    // console.log("ctxVal: ", ctxVal)
   }, []);
 
   const cartItemsJSX = (
@@ -21,8 +21,8 @@ export default function Cart(props) {
             price={item.price}
             name={item.name}
             amount={(+item.orderQuantity)}
-            onRemove={() => { }}
-            onAdd={() => { }}
+            onAdd={() => { handleIncreaseFromWithinCart(item?.id, +item.orderQuantity) }}
+            onRemove={() => { handleDecreaseFromWithinCart(item?.id, +item.orderQuantity) }}
           />
         ))
       }
@@ -34,7 +34,7 @@ export default function Cart(props) {
     cartItems?.forEach((item) => {
       total += (item.price * Number(item.orderQuantity))
     });
-    return total;
+    return total.toFixed(2);
   }
 
   return (
